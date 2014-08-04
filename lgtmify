@@ -201,35 +201,25 @@ $filter = 1;
 $blur = 0.8;
 
 
-if ($image->getNumberImages() > 1) {
-    $lgtm_image = new Imagick();
-    $lgtm_image->readImage($tempfile_lgtm_png);
-    $lgtm_image->resizeImage($width / 2, 0, $filter, $blur);
+$lgtm_image = new Imagick();
+$lgtm_image->readImage($tempfile_lgtm_png);
+$lgtm_image->resizeImage($width / 2, 0, $filter, $blur);
 
+if ($image->getNumberImages() > 1) {
     $image->setFirstIterator();
     $image = $image->coalesceImages();
-
     do {
         $image->compositeImage($lgtm_image, Imagick::COMPOSITE_DEFAULT, $width / 4, $height / 2);
     } while ($image->nextImage());
     $image = $image->deconstructImages();
-
     $image->writeImages($out_filename, true);
-
-    $image->clear();
-    $lgtm_image->clear();
 } else {
-    $lgtm_image = new Imagick();
-    $lgtm_image->readImage($tempfile_lgtm_png);
-    $lgtm_image->resizeImage($width / 2, 0, $filter, $blur);
-
     $image->compositeImage($lgtm_image, Imagick::COMPOSITE_DEFAULT, $width / 4, $height / 2);
-
     $image->writeImage($out_filename);
-
-    $image->clear();
-    $lgtm_image->clear();
 }
+
+$image->clear();
+$lgtm_image->clear();
 
 echo "{$out_filename} created." . PHP_EOL;
 
