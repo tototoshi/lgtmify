@@ -231,5 +231,7 @@ if ($image->getNumberImages() > 1) {
     $lgtm_image->clear();
 }
 
+echo "{$out_filename} created." . PHP_EOL;
+
 unlink($tempfile);
 unlink($tempfile_lgtm_png);
