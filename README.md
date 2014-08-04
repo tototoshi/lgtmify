@@ -13,3 +13,5 @@ $ curl https://raw.githubusercontent.com/tototoshi/lgtmify/master/lgtmify > ~/bi
 ```
 $ lgtmify <filename|url>
 ```
+
+![](./sample/sample_lgtm.gif)
